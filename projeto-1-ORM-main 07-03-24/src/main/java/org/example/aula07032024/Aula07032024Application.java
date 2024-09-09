@@ -12,8 +12,15 @@ public class Aula07032024Application {
 
     private static final Logger log = LoggerFactory.getLogger(Aula07032024Application.class);
 
+    // Define constantes para as mensagens de log
+    private static final String CUSTOMERS_FOUND_MESSAGE = "Customers found with findAll():";
+    private static final String CUSTOMER_FOUND_BY_ID_MESSAGE = "Customer found with findById(1L):";
+    private static final String CUSTOMERS_FOUND_BY_LAST_NAME_MESSAGE = "Customer found with findByLastName('Bauer'):";
+    private static final String SEPARATOR = "--------------------------------";
+    private static final String EMPTY_LINE = "";
+
     public static void main(String[] args) {
-        SpringApplication.run(Aula07032024Application.class);
+        SpringApplication.run(Aula07032024Application.class, args);
     }
 
     @Bean
@@ -27,28 +34,27 @@ public class Aula07032024Application {
             repository.save(new Customer("Michelle", "Dessler"));
 
             // fetch all customers
-            log.info("Customers found with findAll():");
-            log.info("-------------------------------");
+            log.info(CUSTOMERS_FOUND_MESSAGE);
+            log.info(SEPARATOR);
             repository.findAll().forEach(customer -> {
                 log.info(customer.toString());
             });
-            log.info("");
+            log.info(EMPTY_LINE);
 
             // fetch an individual customer by ID
             Customer customer = repository.findById(1L);
-            log.info("Customer found with findById(1L):");
-            log.info("--------------------------------");
+            log.info(CUSTOMER_FOUND_BY_ID_MESSAGE);
+            log.info(SEPARATOR);
             log.info(customer.toString());
-            log.info("");
+            log.info(EMPTY_LINE);
 
             // fetch customers by last name
-            log.info("Customer found with findByLastName('Bauer'):");
-            log.info("--------------------------------------------");
+            log.info(CUSTOMERS_FOUND_BY_LAST_NAME_MESSAGE);
+            log.info(SEPARATOR);
             repository.findByLastName("Bauer").forEach(bauer -> {
                 log.info(bauer.toString());
             });
-            log.info("");
+            log.info(EMPTY_LINE);
         };
     }
-
 }
